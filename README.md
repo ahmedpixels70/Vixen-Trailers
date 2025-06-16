@@ -31,9 +31,6 @@ Works on Vixen Media Group network sites including:
    - Click "Load unpacked"
    - Select the unzipped folder
 
-### Method 2: Install from Chrome Web Store (Coming Soon)
-*(This extension will be submitted to the Chrome Web Store soon)*
-
 ## Features
 
 - **Quality Selection**: Choose from available resolutions (360p to 4K)
