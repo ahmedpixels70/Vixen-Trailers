@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "Vixen Media Group Enhancer",
+  "version": "1.6",
+  "description": "Injects a video player for trailers, adds a download button with quality selection, saves selected video quality, and provides click-to-copy for studio code, duration, date, and director on Vixen Media Group video pages. Dates are copied in YYYY-MM-DD format.",
+  "permissions": [
+    "clipboardWrite",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.blacked.com/videos/*",
+    "https://www.blackedraw.com/videos/*",
+    "https://www.deeper.com/videos/*",
+    "https://www.milfy.com/videos/*",
+    "https://www.slayed.com/videos/*",
+    "https://www.tushy.com/videos/*",
+    "https://www.tushyraw.com/videos/*",
+    "https://www.wifey.com/videos/*",
+    "https://www.vixen.com/videos/*",
+    "http://web.archive.org/*/https://www.blacked.com/videos/*",
+    "http://web.archive.org/*/https://www.blackedraw.com/videos/*",
+    "http://web.archive.org/*/https://www.deeper.com/videos/*",
+    "http://web.archive.org/*/https://www.milfy.com/videos/*",
+    "http://web.archive.org/*/https://www.slayed.com/videos/*",
+    "http://web.archive.org/*/https://www.tushy.com/videos/*",
+    "http://web.archive.org/*/https://www.tushyraw.com/videos/*",
+    "http://web.archive.org/*/https://www.wifey.com/videos/*",
+    "http://web.archive.org/*/https://www.vixen.com/videos/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.blacked.com/videos/*",
+        "https://www.blackedraw.com/videos/*",
+        "https://www.deeper.com/videos/*",
+        "https://www.milfy.com/videos/*",
+        "https://www.slayed.com/videos/*",
+        "https://www.tushy.com/videos/*",
+        "https://www.tushyraw.com/videos/*",
+        "https://www.wifey.com/videos/*",
+        "https://www.vixen.com/videos/*",
+        "http://web.archive.org/*/https://www.blacked.com/videos/*",
+        "http://web.archive.org/*/https://www.blackedraw.com/videos/*",
+        "http://web.archive.org/*/https://www.deeper.com/videos/*",
+        "http://web.archive.org/*/https://www.milfy.com/videos/*",
+        "http://web.archive.org/*/https://www.slayed.com/videos/*",
+        "http://web.archive.org/*/https://www.tushy.com/videos/*",
+        "http://web.archive.org/*/https://www.tushyraw.com/videos/*",
+        "http://web.archive.org/*/https://www.wifey.com/videos/*",
+        "http://web.archive.org/*/https://www.vixen.com/videos/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+ 
+}
