@@ -1,11 +1,11 @@
 (async function main() {
   // Extract various elements from the site URL
+  redirectToVixen();
   const currentSiteUrl = document.URL;
   const siteSlug = currentSiteUrl.match(/[\w\d-]+$/)[0];
   const siteName = currentSiteUrl.match(/www\.(.+)\.com/)[1].toUpperCase();
   const baseUrl = currentSiteUrl.match(/^https\:\/\/[^/]+/)[0];
   const noProtocolUrl = baseUrl.match(/www\.(.+)/)[1];
-
   // Call Vixen GraphQL API to get the videoId
   async function getVideoId() {
     const videoIdResponse = await fetch(baseUrl + "/graphql", {
@@ -191,13 +191,13 @@
 
     // Insert player container after the cover wrapper
     videoCoverWrapper.parentNode.insertBefore(playerContainer, videoCoverWrapper.nextSibling);
-
+    
     // Find the play button inside the cover wrapper
     const playButton = videoCoverWrapper.querySelector('[data-test-component="PlayButton"]');
     if (playButton) {
       // Store original onclick if it exists
       const originalOnClick = playButton.onclick;
-      
+     
       playButton.addEventListener('click', (e) => {
         // If there's an original onclick, execute it first
         if (originalOnClick) originalOnClick(e);
@@ -205,15 +205,16 @@
         playerContainer.style.display = 'block';
         videoCoverWrapper.style.display = 'none';
         videoElement.play();
-        
         const joinNowOverlay = document.querySelector('[data-test-component="JoinNowOverlay"]');
         if (joinNowOverlay) {
             joinNowOverlay.style.display = 'none';
         }
         document.querySelector('.VideoPlayerWrapper-sc-19xo1j4-0.keBsYD').style.display = 'none';
+        
       });
     }
 
+    // Add download button to playback controls
     // Add download button to playback controls
     function addDownloadButton() {
       const buttonGroup = document.querySelectorAll('.PlaybackContent__ButtonGroup-sc-56y4pr-5.bSupUM')[1];
@@ -246,7 +247,7 @@
       downloadLink.style.cursor = 'pointer';
       downloadLink.style.fontWeight = '500';
       downloadLink.style.transition = 'all 0.2s ease';
-      downloadLink.target = '_blank'; // Open in new tab
+      downloadLink.target = '_blank';
       downloadLink.rel = 'noopener noreferrer';
 
       // Hover effects
@@ -309,9 +310,69 @@
         }
       });
 
+      // Create play button
+      const playBtn = document.createElement('button');
+      playBtn.className = 'Button-sc-1yank5k-0 play-btn';
+      playBtn.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 6px;">
+          <path d="M5 3L19 12L5 21V3Z" fill="white"/>
+        </svg>
+        <span>Play</span>
+      `;
+      playBtn.style.display = 'flex';
+      playBtn.style.alignItems = 'center';
+      playBtn.style.justifyContent = 'center';
+      playBtn.style.padding = '6px 12px';
+      playBtn.style.borderRadius = '4px';
+      playBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+      playBtn.style.color = 'rgba(255, 255, 255, 0.9)';
+      playBtn.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+      playBtn.style.cursor = 'pointer';
+      playBtn.style.fontWeight = '500';
+      playBtn.style.fontSize = '13px';
+      playBtn.style.transition = 'all 0.2s ease';
+
+      // Hover effects
+      playBtn.onmouseenter = () => {
+        playBtn.style.backgroundColor = 'rgba(255, 193, 7, 0.15)';
+        playBtn.style.borderColor = 'rgba(255, 193, 7, 0.3)';
+        playBtn.style.transform = 'translateY(-1px)';
+      };
+      playBtn.onmouseleave = () => {
+        playBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+        playBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        playBtn.style.transform = 'translateY(0)';
+      };
+
+      // Click event to mimic [data-test-component="PlayButton"]
+      playBtn.addEventListener('click', (e) => {
+        console.log('Play button clicked:', playBtn); // Debug
+        // Find videoCoverWrapper and playerContainer (defined in createVideoPlayer)
+        const videoCoverWrapper = document.querySelector('[data-test-component="VideoCoverWrapper"]');
+        const playerContainer = document.querySelector('.video-player-container');
+        const videoElement = playerContainer?.querySelector('video');
+        if (videoCoverWrapper && playerContainer && videoElement) {
+          playerContainer.style.display = 'block';
+          videoCoverWrapper.style.display = 'none';
+          videoElement.play();
+          // Hide overlays
+          const joinNowOverlay = document.querySelector('[data-test-component="JoinNowOverlay"]');
+          if (joinNowOverlay) {
+            joinNowOverlay.style.display = 'none';
+          }
+          const videoPreviewWrapper = document.querySelector('.VideoPlayerWrapper-sc-19xo1j4-0.keBsYD');
+          if (videoPreviewWrapper) {
+            videoPreviewWrapper.style.display = 'none';
+          }
+        } else {
+          console.warn('Required elements not found for playBtn click:', { videoCoverWrapper, playerContainer, videoElement });
+        }
+      });
+
       // Add elements to container
       downloadContainer.appendChild(downloadLink);
       downloadContainer.appendChild(downloadQualitySelect);
+      downloadContainer.appendChild(playBtn);
       buttonGroup.appendChild(downloadContainer);
     }
 
@@ -367,7 +428,7 @@
           <path d="M8 5H6C4.89543 5 4 5.89543 4 7V19C4 20.1046 4.89543 21 6 21H16C17.1046 21 18 20.1046 18 19V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           <rect x="8" y="3" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span>Copy Name</span>
+        <span>Copy Date & Title</span>
       `;
       copyButton.style.display = 'flex';
       copyButton.style.alignItems = 'center';
@@ -428,3 +489,11 @@
   // Run the player creation
   createVideoPlayer();
 })();
+
+function redirectToVixen() {
+  const currentDomain = window.location.hostname.toLowerCase();
+  if (currentDomain === 'wifey.com' || currentDomain === 'www.wifey.com') {
+    window.location.replace('https://www.vixen.com');
+  }
+}
+// redirectToVixen();
