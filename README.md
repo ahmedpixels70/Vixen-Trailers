@@ -11,9 +11,11 @@ Works on Vixen Media Group network sites including:
 - Vixen.com
 - Tushy.com
 - Blacked.com
+- TushyRaw.com
 - BlackedRaw.com
 - Deeper.com
 - Slayed.com
+- Milfy.com
 
 ## Installation
 
