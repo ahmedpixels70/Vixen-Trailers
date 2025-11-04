@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Vixen Media Group Enhancer",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Injects a video player for trailers, adds a download button with quality selection, saves selected video quality, and provides click-to-copy for studio code, duration, date, and director on Vixen Media Group video pages. Dates are copied in YYYY-MM-DD format.",
   "permissions": [
     "clipboardWrite",
@@ -9,7 +9,6 @@
     "scripting"
   ],
   "host_permissions": [
-    
     "https://www.blacked.com/videos/*",
     "https://www.blackedraw.com/videos/*",
     "https://www.deeper.com/videos/*",
@@ -32,7 +31,6 @@
   "content_scripts": [
     {
       "matches": [
-        "https://wifey.com/*",
         "https://www.blacked.com/videos/*",
         "https://www.blackedraw.com/videos/*",
         "https://www.deeper.com/videos/*",
@@ -53,8 +51,14 @@
         "http://web.archive.org/*/https://www.vixen.com/videos/*"
       ],
       "js": ["content.js"],
+      "css": ["styles.css"],
       "run_at": "document_end"
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["img.webp"],
+      "matches": ["<all_urls>"]
+    }
   ]
- 
 }

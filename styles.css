@@ -1,0 +1,98 @@
+/* Container alignment if needed */
+#download-quality-select,
+#vixen-trailer-download-btn,
+#vixen-trailer-play-btn {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Shared button style */
+.vixen-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+}
+
+/* Download button */
+.vixen-download-btn {
+  background-color: #e63946;
+  text-decoration: none;
+}
+
+/* Play button */
+.vixen-play-btn {
+  background-color: #1d3557;
+}
+
+/* Hover states */
+.vixen-download-btn:hover {
+  background-color: #d62839;
+}
+
+.vixen-play-btn:hover {
+  background-color: #16324f;
+}
+
+/* Select dropdown */
+.vixen-select {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #222;
+  font-weight: 500;
+}
+
+/* Root playback area */
+.vixen-playback-root {
+  position: relative !important;
+  background: black !important;
+  z-index: 9999 !important;
+}
+
+/* Container for custom video player */
+.vixen-player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+/* Video styling */
+.vixen-video {
+  width: 100%;
+  max-height: 80vh;
+  background: black;
+  display: block;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* Quality select dropdown below video */
+#vixen-inline-quality {
+  margin-top: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #222;
+  font-weight: 500;
+  max-width: 400px;
+}
+#vixen-copy-name-btn {
+  margin-right: 8px;
+}
+
+.vixen-copy-btn {
+  background-color: #457b9d;
+  color: white;
+}
+
+.vixen-copy-btn:hover {
+  background-color: #35617a;
+}
