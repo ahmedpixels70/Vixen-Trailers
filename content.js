@@ -1,8 +1,21 @@
 // content.js
 var downloadButton
  var downloadQualitySelect
-CreateButtons();
 
+// ✅ Global cross-domain storage for extension
+const Storage = {
+  async getItem(key) {
+    return new Promise(resolve => {
+      chrome.storage.local.get(key, result => resolve(result[key]));
+    });
+  },
+  async setItem(key, value) {
+    return new Promise(resolve => {
+      chrome.storage.local.set({ [key]: value }, () => resolve());
+    });
+  }
+};
+CreateButtons();
 function CreateButtons() {
   const el = document.querySelectorAll('.sc-8b1255af-5.gIlYiJ')[1];
   if (!el) return;
@@ -61,8 +74,7 @@ async function loadTrailerQualities() {
     console.error('Missing elements for trailer quality setup.');
     return;
   }
-
-  const savedQualityLabel = localStorage.getItem('vixenDownloadQuality');
+  const savedQualityLabel = await Storage.getItem('vixenDownloadQuality');
   const filename = getFilename() + ".mp4";
 
   try {
@@ -100,7 +112,7 @@ async function loadTrailerQualities() {
     downloadQualitySelect.onchange = () => {
       const selected = downloadQualitySelect.options[downloadQualitySelect.selectedIndex];
       if (selected) {
-        localStorage.setItem('vixenDownloadQuality', selected.textContent);
+        Storage.setItem('vixenDownloadQuality', selected.textContent);
         downloadButton.href = selected.value;
         downloadButton.download = getFilename() + ".mp4";
       }
@@ -133,7 +145,7 @@ function downloadTrailer() {
 }
 
 
-function playTrailerInPage(initialUrl = null) {
+async function playTrailerInPage(initialUrl = null) {
   // Find the playback area (not Hero)
   const playbackRoot = document.querySelector('div[data-test-component="PlaybackMedia"]');
   if (!playbackRoot) {
@@ -165,7 +177,7 @@ function playTrailerInPage(initialUrl = null) {
   playSelect.id = 'vixen-inline-quality';
   playSelect.className = 'vixen-select';
 
-  const savedLabel = localStorage.getItem('videoQualityLabel');
+  const savedLabel = await Storage.getItem('videoQualityLabel');
 
   // --- Load trailer URLs ---
   getTrailerQualityUrls().then(urls => {
@@ -194,7 +206,7 @@ function playTrailerInPage(initialUrl = null) {
   playSelect.onchange = () => {
     video.src = playSelect.value;
     const selectedLabel = playSelect.options[playSelect.selectedIndex].textContent;
-    localStorage.setItem('videoQualityLabel', selectedLabel);
+    Storage.setItem('videoQualityLabel', selectedLabel);
   };
 
   // Add elements to our container
