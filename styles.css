@@ -1,7 +1,13 @@
+/* -------------------------------------------------
+   Vixen Custom Buttons – Fixed Button Size
+   (Your original styles preserved + fix applied)
+   ------------------------------------------------- */
+
 /* Container alignment if needed */
 #download-quality-select,
 #vixen-trailer-download-btn,
-#vixen-trailer-play-btn {
+#vixen-trailer-play-btn,
+#vixen-copy-name-btn {
   margin-right: 8px;
   vertical-align: middle;
 }
@@ -14,6 +20,12 @@
   cursor: pointer;
   font-weight: 600;
   color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;     /* ← Ensures same height */
+  
+  box-sizing: border-box;
 }
 
 /* Download button */
@@ -36,7 +48,7 @@
   background-color: #16324f;
 }
 
-/* Select dropdown */
+/* Select dropdown – same height as buttons */
 .vixen-select {
   padding: 6px 8px;
   border-radius: 4px;
@@ -44,6 +56,9 @@
   background: #fff;
   color: #222;
   font-weight: 500;
+  min-height: 40px;     /* ← Matches button height */
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
 /* Root playback area */
@@ -84,10 +99,8 @@
   font-weight: 500;
   max-width: 400px;
 }
-#vixen-copy-name-btn {
-  margin-right: 8px;
-}
 
+/* Copy button */
 .vixen-copy-btn {
   background-color: #457b9d;
   color: white;
@@ -96,3 +109,9 @@
 .vixen-copy-btn:hover {
   background-color: #35617a;
 }
+
+/* Optional container fix */
+.vixen-btn-container {
+  display: block;
+}
+

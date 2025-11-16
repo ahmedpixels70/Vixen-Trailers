@@ -1,4 +1,13 @@
+
+
 // content.js
+
+// Redirect any wifey.com URL → vixen.com
+if (location.hostname === "www.wifey.com") {
+    location.href = "https://www.vixen.com/";
+}
+
+
 var downloadButton;
 var downloadQualitySelect;
 
@@ -19,24 +28,27 @@ const Storage = {
 CreateButtons();
 
 function CreateButtons() {
-  const el = document.querySelectorAll('.sc-8b1255af-5.gIlYiJ')[1];
+  const el = document.querySelectorAll('.sc-8b1255af-10.hxNzZh')[0];
   if (!el) return;
 
   // Prevent duplicates
   if (el.querySelector('#vixen-quality-select')) return;
-
+  // create new div for custom btns
+  const newDiv = document.createElement('div');
+  newDiv.className = 'vixen-btn-container';
+  el.appendChild(newDiv);
   // --- Create buttons ---
   downloadButton = document.createElement('a');
   downloadButton.target = '_blank';
   downloadButton.id = 'vixen-trailer-download-btn';
   downloadButton.className = 'vixen-btn vixen-download-btn';
-  downloadButton.textContent = 'Download Trailer';
+  downloadButton.textContent = 'Download';
   downloadButton.rel = 'noopener noreferrer';
 
   const copyNameButton = document.createElement('button');
   copyNameButton.id = 'vixen-copy-name-btn';
   copyNameButton.className = 'vixen-btn vixen-copy-btn';
-  copyNameButton.textContent = 'Copy Name';
+  copyNameButton.textContent = 'Copy';
 
   downloadQualitySelect = document.createElement('select');
   downloadQualitySelect.id = 'download-quality-select';
@@ -45,13 +57,13 @@ function CreateButtons() {
   const playButton = document.createElement('button');
   playButton.id = 'vixen-trailer-play-btn';
   playButton.className = 'vixen-btn vixen-play-btn';
-  playButton.textContent = 'Play Trailer';
+  playButton.textContent = 'Play';
 
   // Append all buttons
-  el.appendChild(downloadButton);
-  el.appendChild(copyNameButton);
-  el.appendChild(downloadQualitySelect);
-  el.appendChild(playButton);
+  newDiv.appendChild(downloadButton);
+  newDiv.appendChild(copyNameButton);
+  newDiv.appendChild(downloadQualitySelect);
+  newDiv.appendChild(playButton);
 
   // Load download qualities
   loadTrailerQualities();
@@ -60,8 +72,9 @@ function CreateButtons() {
   copyNameButton.onclick = () => {
     const filename = getFilename();
     navigator.clipboard.writeText(filename).then(() => {
+      var temp_text = copyNameButton.textContent;
       copyNameButton.textContent = 'Copied!';
-      setTimeout(() => (copyNameButton.textContent = 'Copy Name'), 1500);
+      setTimeout(() => (copyNameButton.textContent = temp_text), 1500);
     });
   };
 
